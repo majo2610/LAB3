@@ -9,15 +9,24 @@ test('Fill the input', async ({ page }) => {
 
 test('Check value', async ({ page }) => {
   await page.goto('https://devexpress.github.io/testcafe/example/');
-  await page.check("#reusing-js-code");
+  await page.locator('#remote-testing').check();
+  await page.locator('#reusing-js-code').check();
+  await page.locator('#background-parallel-testing').check();
+  await page.locator('#continuous-integration-embedding').check();
+  await page.locator('#traffic-markup-analysis').check();
+  expect(await page.isChecked('#traffic-markup-analysis')).toBeTruthy()
   expect(await page.isChecked('#reusing-js-code')).toBeTruthy();
+
 });
 
 test('Radio value', async ({ page }) => {
   await page.goto('https://devexpress.github.io/testcafe/example/');
-  await page.check("#macos");
-  expect(await page.isChecked('#macos')).toBeTruthy();
+  await page.locator('#macos').check();
+  await page.locator('#linux').check();
+  const valueChecked=page.locator("input[value='Linux']");
+  await expect(valueChecked).toBeChecked();
 });
+
 
 
 test('Select value', async ({ page }) => {
